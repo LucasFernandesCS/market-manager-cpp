@@ -1,0 +1,65 @@
+#include "Produto.h"
+#include <iostream>
+
+Produto::Produto(int id, string nome, double preco, int quantidade) {
+    this->id = id;
+    this->nome = nome;
+    this->preco = preco;
+    this->quantidade = quantidade;
+}
+
+int Produto::getId() const {
+    return id;
+}
+
+string Produto::getNome() const {
+    return nome;
+}
+
+double Produto::getPreco() const {
+    return preco;
+}
+
+int Produto::getQuantidade() const {
+    return quantidade;
+}
+
+void Produto::setNome(string nome) {
+    this->nome = nome;
+}
+
+void Produto::setPreco(double preco) {
+    if (preco >= 0)
+        this->preco = preco;
+    else
+        cout << "Erro: preço inválido." << endl;
+}
+
+void Produto::setQuantidade(int quantidade) {
+    if (quantidade >= 0)
+        this->quantidade = quantidade;
+    else
+        cout << "Erro: quantidade inválida." << endl;
+}
+
+void Produto::adicionarEstoque(int qtd) {
+    if (qtd > 0)
+        quantidade += qtd;
+    else
+        cout << "Erro: quantidade para adicionar deve ser positiva." << endl;
+}
+
+bool Produto::vender(int qtd) {
+    if (qtd <= 0) {
+        cout << "Erro: quantidade de venda inválida." << endl;
+        return false;
+    }
+
+    if (qtd > quantidade) {
+        cout << "Estoque insuficiente para o produto: " << nome << endl;
+        return false;
+    }
+
+    quantidade -= qtd;
+    return true;
+}
