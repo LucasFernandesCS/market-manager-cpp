@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "src/models/Produto.h"
+#include "Produto.h"
 using namespace std;
 
 int main() {
