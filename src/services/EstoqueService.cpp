@@ -1,5 +1,6 @@
 #include "EstoqueService.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 EstoqueService::EstoqueService() {
@@ -47,4 +48,14 @@ double EstoqueService::venderProduto(int id, int qtd) {
         }
     }
     return 0;
+}
+bool EstoqueService::removerProduto(int id) {
+    for (auto it = produtos.begin(); it != produtos.end(); it++) {
+        if (it->getId()==id) {
+            produtos.erase(it);
+            salvarEstoque();
+            return true;
+        }
+    }
+    return false;
 }

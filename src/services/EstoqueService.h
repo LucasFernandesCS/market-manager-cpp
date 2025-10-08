@@ -22,6 +22,7 @@ public:
     void listarProdutos();
     bool adicionarEstoque(int id, int qtd);
     double venderProduto(int id, int qtd);
+    bool removerProduto(int id);
 };
 
 #endif
