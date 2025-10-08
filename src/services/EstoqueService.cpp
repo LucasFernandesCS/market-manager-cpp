@@ -2,8 +2,13 @@
 #include <iostream>
 using namespace std;
 
+EstoqueService::EstoqueService() {
+    produtos = data.carregar();
+}
+
 void EstoqueService::cadastrarProduto(const Produto& p) {
     produtos.push_back(p);
+    salvarEstoque();
 }
 
 void EstoqueService::listarProdutos() {
@@ -23,6 +28,7 @@ bool EstoqueService::adicionarEstoque(int id, int qtd) {
     for (auto &p : produtos) {
         if (p.getId() == id) {
             p.adicionarEstoque(qtd);
+            salvarEstoque();
             return true;
         }
     }
@@ -33,6 +39,7 @@ double EstoqueService::venderProduto(int id, int qtd) {
     for (auto &p : produtos) {
         if (p.getId() == id) {
             if (p.vender(qtd)) {
+                salvarEstoque();
                 return p.getPreco() * qtd;
             } else {
                 return 0;
