@@ -1,101 +1,68 @@
 #include <iostream>
-#include <vector>
 #include "src/models/Produto.h"
+#include "src/services/EstoqueService.h"
 using namespace std;
 
 int main() {
-    vector<Produto> estoque;
+    EstoqueService estoque;
     int opcao;
 
     do {
-        cout << "\n=== SISTEMA DE ESTOQUE ===" << endl;
-        cout << "1. Cadastrar produto" << endl;
-        cout << "2. Listar produtos" << endl;
-        cout << "3. Adicionar estoque" << endl;
-        cout << "4. Vender produto" << endl;
-        cout << "0. Sair" << endl;
+        cout << "\n=== SISTEMA DE ESTOQUE ===\n";
+        cout << "1. Cadastrar produto\n";
+        cout << "2. Listar produtos\n";
+        cout << "3. Adicionar estoque\n";
+        cout << "4. Vender produto\n";
+        cout << "0. Sair\n";
         cout << "Escolha uma opcao: ";
         cin >> opcao;
 
         if (opcao == 1) {
-            int id;
+            int id, qtd;
             string nome;
             double preco;
-            int quantidade;
 
-            cout << "\n--- Cadastro de Produto ---" << endl;
-            cout << "ID: ";
-            cin >> id;
-            cin.ignore(); // limpar buffer
-            cout << "Nome: ";
-            getline(cin, nome);
-            cout << "Preco: ";
-            cin >> preco;
-            cout << "Quantidade: ";
-            cin >> quantidade;
+            cout << "\n--- Cadastro de Produto ---\n";
+            cout << "ID: "; cin >> id; cin.ignore();
+            cout << "Nome: "; getline(cin, nome);
+            cout << "Preco: "; cin >> preco;
+            cout << "Quantidade: "; cin >> qtd;
 
-            Produto p(id, nome, preco, quantidade);
-            estoque.push_back(p);
-            cout << "Produto cadastrado com sucesso!" << endl;
+            Produto p(id, nome, preco, qtd);
+            estoque.cadastrarProduto(p);
+            cout << "Produto cadastrado com sucesso!\n";
 
         } else if (opcao == 2) {
-            cout << "\n--- Lista de Produtos ---" << endl;
-            if (estoque.empty()) {
-                cout << "Nenhum produto cadastrado." << endl;
-            } else {
-                for (auto &p : estoque) {
-                    cout << "ID: " << p.getId()
-                         << " | Nome: " << p.getNome()
-                         << " | Preco: R$" << p.getPreco()
-                         << " | Quantidade: " << p.getQuantidade() << endl;
-                }
-            }
+            cout << "\n--- Lista de Produtos ---\n";
+            estoque.listarProdutos();
 
         } else if (opcao == 3) {
             int id, qtd;
-            cout << "\nID do produto para adicionar estoque: ";
-            cin >> id;
-            cout << "Quantidade a adicionar: ";
-            cin >> qtd;
+            cout << "\nID do produto para adicionar estoque: "; cin >> id;
+            cout << "Quantidade a adicionar: "; cin >> qtd;
 
-            bool encontrado = false;
-            for (auto &p : estoque) {
-                if (p.getId() == id) {
-                    p.adicionarEstoque(qtd);
-                    cout << "Estoque atualizado!" << endl;
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (!encontrado)
-                cout << "Produto não encontrado." << endl;
+            if (estoque.adicionarEstoque(id, qtd))
+                cout << "Estoque atualizado!\n";
+            else
+                cout << "Produto nao encontrado!\n";
 
         } else if (opcao == 4) {
             int id, qtd;
-            cout << "\nID do produto para vender: ";
-            cin >> id;
-            cout << "Quantidade a vender: ";
-            cin >> qtd;
+            cout << "\nID do produto para vender: "; cin >> id;
+            cout << "Quantidade a vender: "; cin >> qtd;
 
-            bool encontrado = false;
-            for (auto &p : estoque) {
-                if (p.getId() == id) {
-                    if (p.vender(qtd))
-                        cout << "Venda realizada com sucesso!" << endl;
-                    encontrado = true;
-                    break;
-                }
-            }
-            if (!encontrado)
-                cout << "Produto não encontrado." << endl;
+            double valor = estoque.venderProduto(id, qtd);
+            if (valor > 0)
+                cout << "Venda realizada! Total: R$" << valor << endl;
+            else
+                cout << "Produto nao encontrado ou estoque insuficiente!\n";
 
-        } else if (opcao == 0) {
-            cout << "Encerrando o programa..." << endl;
-        } else {
-            cout << "Opcao invalida!" << endl;
+        } else if (opcao != 0) {
+            cout << "Opcao invalida!\n";
         }
 
     } while (opcao != 0);
 
+    cout << "Encerrando programa...\n";
     return 0;
 }
