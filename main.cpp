@@ -16,6 +16,7 @@ int main()
         cout << "3. Adicionar estoque\n";
         cout << "4. Vender produto\n";
         cout << "5. Remover produto\n";
+        cout << "6. Alterar preco de produto\n";
         cout << "0. Sair\n";
         cout << "Escolha uma opcao: ";
         cin >> opcao;
@@ -95,6 +96,20 @@ int main()
             }
             break;
         }
+        case 6: {
+            int id;
+            double preco;
+            cout << "\nID do produto: ";
+            cin >> id;
+            cout << "Novo preco: ";
+            cin >> preco;
+
+            if (estoque.alterarPreco(id, preco))
+                cout << "Preco atualizado com sucesso!\n";
+            else
+                cout << "Produto nao encontrado!\n";
+        }
+
         case 0:
         {
             // encerrando loop

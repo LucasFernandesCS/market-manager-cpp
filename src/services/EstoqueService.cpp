@@ -59,3 +59,13 @@ bool EstoqueService::removerProduto(int id) {
     }
     return false;
 }
+bool EstoqueService::alterarPreco(int id, double novoPreco) {
+    for (auto &p : produtos) {
+        if (p.getId() == id) {
+            p.setPreco(novoPreco);
+            salvarEstoque();
+            return true;
+        }
+    }
+    return false;
+}
