@@ -12,6 +12,10 @@ int Produto::getId() const {
     return id;
 }
 
+void Produto::setId(int id) {
+    this->id = id;
+}
+
 string Produto::getNome() const {
     return nome;
 }

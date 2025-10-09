@@ -26,6 +26,7 @@ public:
     double venderProduto(int id, int qtd);
     bool removerProduto(int id);
     bool alterarPreco(int id, double novoPreco);
+    bool alterarIDProduto(int id, int novoId);
 };
 
 #endif

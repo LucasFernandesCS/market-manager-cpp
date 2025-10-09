@@ -19,6 +19,7 @@ public:
     double getPreco() const;
     int getQuantidade() const;
 
+    void setId(int id);
     void setNome(string nome);
     void setPreco(double preco);
     void setQuantidade(int quantidade);

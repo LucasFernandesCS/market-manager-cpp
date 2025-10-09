@@ -17,6 +17,7 @@ int main()
         cout << "4. Vender produto\n";
         cout << "5. Remover produto\n";
         cout << "6. Alterar preco de produto\n";
+        cout << "7. Alterar ID do produto\n";
         cout << "0. Sair\n";
         cout << "Escolha uma opcao: ";
         cin >> opcao;
@@ -42,12 +43,12 @@ int main()
 
             Produto p(id, nome, preco, qtd);
             estoque.cadastrarProduto(p);
-            cout << "Produto cadastrado com sucesso!\n";
             break;
         }
         case 2:
         {
             cout << "\n--- Lista de Produtos ---\n";
+
             estoque.listarProdutos();
             break;
         }
@@ -59,10 +60,7 @@ int main()
             cout << "Quantidade a adicionar: ";
             cin >> qtd;
 
-            if (estoque.adicionarEstoque(id, qtd))
-                cout << "Estoque atualizado!\n";
-            else
-                cout << "Produto nao encontrado!\n";
+            estoque.adicionarEstoque(id, qtd);
             break;
         }
         case 4:
@@ -73,11 +71,7 @@ int main()
             cout << "Quantidade a vender: ";
             cin >> qtd;
 
-            double valor = estoque.venderProduto(id, qtd);
-            if (valor > 0)
-                cout << "Venda realizada! Total: R$" << valor << endl;
-            else
-                cout << "Produto nao encontrado ou estoque insuficiente!\n";
+            estoque.venderProduto(id, qtd);
             break;
         }
         case 5:
@@ -86,14 +80,7 @@ int main()
             cout << "ID do produto para remover: ";
             cin >> id;
 
-            if (estoque.removerProduto(id))
-            {
-                cout << "Produto removido com sucesso!\n";
-            }
-            else
-            {
-                cout << "Produto nao encontrado!" << endl;
-            }
+            estoque.removerProduto(id);
             break;
         }
         case 6: {
@@ -104,15 +91,22 @@ int main()
             cout << "Novo preco: ";
             cin >> preco;
 
-            if (estoque.alterarPreco(id, preco))
-                cout << "Preco atualizado com sucesso!\n";
-            else
-                cout << "Produto nao encontrado!\n";
+            estoque.alterarPreco(id, preco);
+            break;
         }
+        case 7: {
+            int id;
+            int novoId;
+            cout << "\nID do produto que deseja alterar: ";
+            cin >> id;
+            cout << "Novo ID do produto: ";
+            cin >> novoId;
 
+            estoque.alterarIDProduto(id, novoId);
+            break;
+        }
         case 0:
         {
-            // encerrando loop
             break;
         }
         default:
@@ -123,7 +117,6 @@ int main()
         }
 
     } while (opcao != 0);
-
     cout << "Encerrando programa...\n";
     return 0;
 }
