@@ -26,13 +26,11 @@ int main()
         {
         case 1:
         {
-            int id, qtd;
+            int qtd;
             string nome;
             double preco;
 
             cout << "\n--- Cadastro de Produto ---\n";
-            cout << "ID: ";
-            cin >> id;
             cin.ignore();
             cout << "Nome: ";
             getline(cin, nome);
@@ -41,7 +39,7 @@ int main()
             cout << "Quantidade: ";
             cin >> qtd;
 
-            Produto p(id, nome, preco, qtd);
+            Produto p(nome, preco, qtd);
             estoque.cadastrarProduto(p);
             break;
         }

@@ -1,8 +1,14 @@
 #include "Produto.h"
 #include <iostream>
+#include <fstream>>
 
-Produto::Produto(int id, string nome, double preco, int quantidade) {
+Produto::Produto(string nome, double preco, int quantidade)
+{
+    // Auto-increment id
+    int id = readProximoId();
     this->id = id;
+    updateProximoId(id + 1);
+
     this->nome = nome;
     this->preco = preco;
     this->quantidade = quantidade;
@@ -66,4 +72,26 @@ bool Produto::vender(int qtd) {
 
     quantidade -= qtd;
     return true;
+}
+
+int Produto::readProximoId()
+{
+    std::ifstream file("next_id.txt");
+    int id = 1;
+
+    if (file >> id)
+        return id;
+
+    file.close();
+
+    // If the file opening is falied or if it's empty
+    return 1;
+}
+
+int Produto::updateProximoId(int id)
+{
+    std::ofstream file("next_id.txt", std::ios::trunc);
+    file << id;
+
+    file.close();
 }

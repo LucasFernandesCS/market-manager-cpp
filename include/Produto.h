@@ -7,12 +7,16 @@ using namespace std;
 class Produto {
 private:
     int id;
+    static int next_id;
     string nome;
     double preco;
     int quantidade;
 
 public:
-    Produto(int id, string nome, double preco, int quantidade);
+    Produto(string nome, double preco, int quantidade);
+
+    int readProximoId();
+    int updateProximoId(int id);
 
     int getId() const;
     string getNome() const;
