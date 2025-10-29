@@ -1,119 +1,136 @@
 #include "EstoqueService.h"
-#include <iostream>
-#include <fstream>
-using namespace std;
+#include "Exceptions.h"
 
 EstoqueService::EstoqueService() {
+    carregarDados();
+}
+
+void EstoqueService::carregarDados() {
     produtos = data.carregar();
 }
 
-void EstoqueService::cadastrarProduto(const Produto& p) {
-    for (const auto &produtoExistente : produtos) {
-        if (produtoExistente.getId() == p.getId()) {
-            std::cout << "Erro: Ja existe um produto com o ID " << p.getId() << "." << std::endl;
+void EstoqueService::salvarDados() {
+    data.salvar(produtos);
+}
+
+bool EstoqueService::idJaExiste(int id) const {
+    for (const auto& p : produtos) {
+        if (p.getId() == id) return true;
+    }
+    return false;
+}
+
+void EstoqueService::adicionarProduto(Produto& produto) {
+    if (produto.getId() == 0) {
+        int novoId = Produto::readProximoId();
+        produto.setId(novoId);
+        Produto::updateProximoId(novoId + 1);
+    }
+
+    if (idJaExiste(produto.getId())) {
+        throw Exceptions("ID " + std::to_string(produto.getId()) + " ja existe!");
+    }
+
+    if (produto.getPreco() <= 0) {
+        throw Exceptions("Preco invalido para o produto '" + produto.getNome() + "'!");
+    }
+
+    if (produto.getQuantidade() < 0) {
+        throw Exceptions("Quantidade invalida para o produto '" + produto.getNome() + "'!");
+    }
+
+    produtos.push_back(produto);
+    salvarDados();
+}
+
+void EstoqueService::listarProdutos() const {
+    if (produtos.empty()) {
+        throw Exceptions("Nenhum produto cadastrado!");
+    }
+
+    for (const auto& p : produtos) {
+        std::cout << "ID: " << p.getId()
+                  << " | Nome: " << p.getNome()
+                  << " | Preco: R$" << p.getPreco()
+                  << " | Quantidade: " << p.getQuantidade()
+                  << std::endl;
+    }
+}
+
+Produto* EstoqueService::buscarProduto(int id) {
+    for (auto& p : produtos) {
+        if (p.getId() == id) return &p;
+    }
+    return nullptr;
+}
+
+void EstoqueService::adicionarEstoque(int id, int quantidade) {
+    Produto* produto = buscarProduto(id);
+    if (!produto) {
+        throw Exceptions("Produto nao encontrado!");
+    }
+
+    if (quantidade <= 0) {
+        throw Exceptions("Quantidade invalida para adicionar estoque!");
+    }
+
+    produto->adicionarEstoque(quantidade);
+    salvarDados();
+}
+
+void EstoqueService::venderProduto(int id, int quantidade) {
+    Produto* produto = buscarProduto(id);
+    if (!produto) {
+        throw Exceptions("Produto nao encontrado!");
+    }
+
+    if (quantidade <= 0) {
+        throw Exceptions("Quantidade invalida para venda!");
+    }
+
+    if (produto->getQuantidade() < quantidade) {
+        throw Exceptions("Estoque insuficiente para o produto '" + produto->getNome() + "'!");
+    }
+
+    produto->vender(quantidade);
+    salvarDados();
+}
+
+void EstoqueService::alterarPreco(int id, double novoPreco) {
+    Produto* produto = buscarProduto(id);
+    if (!produto) {
+        throw Exceptions("Produto nao encontrado!");
+    }
+
+    if (novoPreco <= 0) {
+        throw Exceptions("Preco invalido para o produto '" + produto->getNome() + "'!");
+    }
+
+    produto->setPreco(novoPreco);
+    salvarDados();
+}
+
+void EstoqueService::removerProduto(int id) {
+    for (auto it = produtos.begin(); it != produtos.end(); ++it) {
+        if (it->getId() == id) {
+            produtos.erase(it);
+            salvarDados();
             return;
         }
     }
-    produtos.push_back(p);
-    salvarEstoque();
-    cout << "Produto cadastrado com sucesso!\n";
+    throw Exceptions("Produto nao encontrado!");
 }
 
-void EstoqueService::listarProdutos() {
-    if (produtos.empty()) {
-        cout << "Nenhum produto cadastrado." << endl;
-        return;
-    }
-    for (auto &p : produtos) {
-        cout << "ID: " << p.getId()
-             << " | Nome: " << p.getNome()
-             << " | Preco: R$" << p.getPreco()
-             << " | Quantidade: " << p.getQuantidade() << endl;
-    }
-}
-
-bool EstoqueService::adicionarEstoque(int id, int qtd) {
-    for (auto &p : produtos) {
-        if (p.getId() == id) {
-            p.adicionarEstoque(qtd);
-            salvarEstoque();
-            cout << "Estoque atualizado!\n";
-            return true;
-        }
-    }
-    cout << "Erro: Produto nao encontrado!\n";
-    return false;
-}
-
-double EstoqueService::venderProduto(int id, int qtd) {
-    if (qtd <= 0) {
-        cout << "Erro: A quantidade de venda nao pode ser negativa ou zero." << endl;
-        return 0;
+void EstoqueService::alterarIdProduto(int id, int novoId) {
+    Produto* produto = buscarProduto(id);
+    if (!produto) {
+        throw Exceptions("Produto nao encontrado!");
     }
 
-    for (auto &p : produtos) {
-        if (p.getId() == id) {
-            if (p.getQuantidade() >= qtd) {
-                if (p.vender(qtd)) {
-                    salvarEstoque();
-                    cout << "Quantidade de " << p.getNome() << " vendida: " << qtd << endl;
-                    double valorVenda = p.getPreco() * qtd;
-                    cout << "Valor total da venda: R$ " << valorVenda << endl;
-                    return valorVenda;
-                } else {
-                    cout << "Erro: Falha no processamento da venda do produto." << endl;
-                    return 0;
-                }
-            } else {
-                cout << "Erro: Estoque insuficiente para a venda!" << endl;
-                return 0;
-            }
-        }
-    }
-    cout << "Erro: Produto não encontrado!" << endl;
-    return 0;
-}
-
-bool EstoqueService::removerProduto(int id) {
-    for (auto it = produtos.begin(); it != produtos.end(); it++) {
-        if (it->getId()==id) {
-            produtos.erase(it);
-            salvarEstoque();
-            cout << "Produto removido com sucesso!" << endl;
-            return true;
-        }
-    }
-    cout << "Erro: Produto nao encontrado!" << endl;
-    return false;
-}
-bool EstoqueService::alterarPreco(int id, double novoPreco) {
-    for (auto &p : produtos) {
-        if (p.getId() == id) {
-            p.setPreco(novoPreco);
-            salvarEstoque();
-            cout << "Preco atualizado com sucesso!" << endl;
-            return true;
-        }
-    }
-    cout << "Erro: Produto nao encontrado!" << endl;
-    return false;
-}
-bool EstoqueService::alterarIDProduto(int id, int novoId) {
-    for (auto &p : produtos) {
-        if (p.getId()== novoId) {
-            cout << "Erro: ID do produto ja existente!" << endl;
-            return false;
-        }
+    if (idJaExiste(novoId)) {
+        throw Exceptions("Novo ID ja existente!");
     }
 
-    for (auto &p : produtos) {
-        if (p.getId() == id) {
-            p.setId(novoId);
-            salvarEstoque();
-            cout << "ID do produto alterado com sucesso!" << endl;
-            return true;
-        }
-    }
-    cout << "Erro: ID do produto nao encontrado!" << endl;
-    return false;
+    produto->setId(novoId);
+    salvarDados();
 }
