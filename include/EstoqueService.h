@@ -2,31 +2,33 @@
 #define ESTOQUESERVICE_H
 
 #include <vector>
-#include "Produto.h"
+#include <string>
+#include <iostream>
 #include "EstoqueData.h"
-using namespace std;
+#include "Produto.h"
 
-class EstoqueService
-{
+class EstoqueService {
 private:
-    vector<Produto> produtos;
+    std::vector<Produto> produtos;
     EstoqueData data;
 
-    void salvarEstoque()
-    {
-        data.salvar(produtos);
-    }
+    void carregarDados();
+    void salvarDados();
+
+    bool idJaExiste(int id) const;
 
 public:
     EstoqueService();
 
-    void cadastrarProduto(const Produto &p);
-    void listarProdutos();
-    bool adicionarEstoque(int id, int qtd);
-    double venderProduto(int id, int qtd);
-    bool removerProduto(int id);
-    bool alterarPreco(int id, double novoPreco);
-    bool alterarIDProduto(int id, int novoId);
+    void adicionarProduto(Produto& produto);
+    void listarProdutos() const;
+    Produto* buscarProduto(int id);
+
+    void adicionarEstoque(int id, int quantidade);
+    void venderProduto(int id, int quantidade);
+    void alterarPreco(int id, double novoPreco);
+    void removerProduto(int id);
+    void alterarIdProduto(int id, int novoId);
 };
 
 #endif
