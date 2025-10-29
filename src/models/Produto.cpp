@@ -1,97 +1,68 @@
 #include "Produto.h"
-#include <iostream>
-#include <fstream>>
+#include "Exceptions.h"
+#include <fstream>
+using namespace std;
 
-Produto::Produto(string nome, double preco, int quantidade)
-{
-    // Auto-increment id
-    int id = readProximoId();
-    this->id = id;
-    updateProximoId(id + 1);
+Produto::Produto() : id(0), nome(""), preco(0.0), quantidade(0) {}
 
+Produto::Produto(std::string nome, double preco, int quantidade) {
+    if (quantidade < 0) {
+        throw Exceptions("Quantidade inicial inválida para o produto!");
+    }
+    if (preco < 0) {
+        throw Exceptions("Preço inicial inválido para o produto!");
+    }
+
+    this->id = 0;
     this->nome = nome;
     this->preco = preco;
     this->quantidade = quantidade;
 }
 
-int Produto::getId() const {
-    return id;
-}
-
-void Produto::setId(int id) {
-    this->id = id;
-}
-
-string Produto::getNome() const {
-    return nome;
-}
-
-double Produto::getPreco() const {
-    return preco;
-}
-
-int Produto::getQuantidade() const {
-    return quantidade;
-}
-
-void Produto::setNome(string nome) {
-    this->nome = nome;
-}
-
-void Produto::setPreco(double preco) {
-    if (preco >= 0)
-        this->preco = preco;
-    else
-        cout << "Erro: preço inválido." << endl;
-}
-
-void Produto::setQuantidade(int quantidade) {
-    if (quantidade >= 0)
-        this->quantidade = quantidade;
-    else
-        cout << "Erro: quantidade inválida." << endl;
-}
+int Produto::getId() const { return id; }
+void Produto::setId(int id) { this->id = id; }
+std::string Produto::getNome() const { return nome; }
+void Produto::setNome(const std::string& nome) { this->nome = nome; }
+double Produto::getPreco() const { return preco; }
+void Produto::setPreco(double preco) { this->preco = preco; }
+int Produto::getQuantidade() const { return quantidade; }
+void Produto::setQuantidade(int quantidade) { this->quantidade = quantidade; }
 
 void Produto::adicionarEstoque(int qtd) {
-    if (qtd > 0)
-        quantidade += qtd;
-    else
-        cout << "Erro: quantidade para adicionar deve ser positiva." << endl;
+    if (qtd <= 0) {
+        throw Exceptions("Quantidade para adicionar deve ser positiva!");
+    }
+    quantidade += qtd;
 }
 
 bool Produto::vender(int qtd) {
     if (qtd <= 0) {
-        cout << "Erro: quantidade de venda inválida." << endl;
-        return false;
+        throw Exceptions("Quantidade de venda invalida!");
     }
 
     if (qtd > quantidade) {
-        cout << "Estoque insuficiente para o produto: " << nome << endl;
-        return false;
+        throw Exceptions("Estoque insuficiente para o produto '" + nome + "'!");
     }
 
     quantidade -= qtd;
     return true;
 }
 
-int Produto::readProximoId()
-{
-    std::ifstream file("next_id.txt");
+int Produto::readProximoId() {
+    std::ifstream arquivo("proximo_id.txt");
     int id = 1;
 
-    if (file >> id)
-        return id;
-
-    file.close();
-
-    // If the file opening is falied or if it's empty
-    return 1;
+    if (arquivo.is_open()) {
+        arquivo >> id;
+        arquivo.close();
+    }
+    return id;
 }
 
-int Produto::updateProximoId(int id)
-{
-    std::ofstream file("next_id.txt", std::ios::trunc);
-    file << id;
-
-    file.close();
+void Produto::updateProximoId(int novoId) {
+    std::ofstream arquivo("proximo_id.txt", std::ios::trunc);
+    if (arquivo.is_open()) {
+        arquivo << novoId;
+        arquivo.close();
+    }
 }
