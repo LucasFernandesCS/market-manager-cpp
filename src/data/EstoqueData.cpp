@@ -1,13 +1,14 @@
 #include "EstoqueData.h"
+#include "Exceptions.h"
 #include <fstream>
-#include <iostream>
+#include <sstream>
+#include <vector>
 using namespace std;
 
 void EstoqueData::salvar(const vector<Produto>& produtos) {
     ofstream arq(arquivo);
     if (!arq.is_open()) {
-        cout << "Erro ao abrir arquivo para salvar!" << endl;
-        return;
+        throw Exceptions("Erro ao abrir arquivo para salvar!");
     }
 
     for (const auto& p : produtos) {
@@ -24,26 +25,32 @@ vector<Produto> EstoqueData::carregar() {
     vector<Produto> produtos;
     ifstream arq(arquivo);
     if (!arq.is_open()) {
-        cout << "Arquivo de estoque não encontrado. Iniciando vazio." << endl;
         return produtos;
     }
 
     string linha;
     while (getline(arq, linha)) {
-        int id, qtd;
-        double preco;
-        string nome;
+        if (linha.empty()) continue;
 
-        size_t pos1 = linha.find(';');
-        size_t pos2 = linha.find(';', pos1 + 1);
-        size_t pos3 = linha.find(';', pos2 + 1);
+        stringstream ss(linha);
+        string idStr, nome, precoStr, qtdStr;
 
-        nome = linha.substr(pos1 + 1, pos2 - pos1 - 1);
-        preco = stod(linha.substr(pos2 + 1, pos3 - pos2 - 1));
-        qtd = stoi(linha.substr(pos3 + 1));
+        if (!getline(ss, idStr, ';')) continue;
+        if (!getline(ss, nome, ';')) continue;
+        if (!getline(ss, precoStr, ';')) continue;
+        if (!getline(ss, qtdStr)) continue;
 
-        Produto p(nome, preco, qtd);
-        produtos.push_back(p);
+        try {
+            int id = stoi(idStr);
+            double preco = stod(precoStr);
+            int qtd = stoi(qtdStr);
+
+            Produto p(nome, preco, qtd);
+            p.setId(id);
+            produtos.push_back(p);
+        } catch (const exception& e) {
+            throw Exceptions("Erro ao processar linha: " + linha + " (" + string(e.what()) + ")");
+        }
     }
 
     arq.close();
