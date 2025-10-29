@@ -2,17 +2,19 @@
 #define ESTOQUEDATA_H
 
 #include <vector>
+#include <string>
 #include "Produto.h"
-using namespace std;
 
-class EstoqueData
-{
+class EstoqueData {
 private:
-    string arquivo = "estoque.txt";
+    std::string arquivo;
 
 public:
-    void salvar(const vector<Produto> &produtos);
-    vector<Produto> carregar();
+    EstoqueData(const std::string& nomeArquivo = "estoque.txt")
+        : arquivo(nomeArquivo) {}
+
+    void salvar(const std::vector<Produto>& produtos);
+    std::vector<Produto> carregar();
 };
 
 #endif
