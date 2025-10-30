@@ -11,7 +11,7 @@ file(GLOB_RECURSE SOURCES
         src/data/*.cpp
         src/models/*.cpp
         src/services/*.cpp
-        src/Validator/*.cpp
+        src/validator/*.cpp
         main.cpp
 )
 
