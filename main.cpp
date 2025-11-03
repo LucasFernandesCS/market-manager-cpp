@@ -159,9 +159,10 @@ int main() {
                             break;
                         }
 
-                        case 3:
+                        case 3: {
                             carrinho.listarItens();
                             break;
+                        }
 
                         case 4: {
                             try {
