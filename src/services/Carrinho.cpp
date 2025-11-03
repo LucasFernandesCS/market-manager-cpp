@@ -55,7 +55,8 @@ double Carrinho::calcularTotal() const {
 
 void Carrinho::listarItens() const {
     if (itens.empty()) {
-        throw Exceptions("Carrinho vazio!");
+        std::cout << "Carrinho vazio. Nenhum item para listar." << std::endl;
+        return;
     }
 
     for (const auto& item : itens) {

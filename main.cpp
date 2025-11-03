@@ -50,7 +50,6 @@ int main() {
                                 Produto novoProduto(nome, preco, qtd);
                                 estoqueService.adicionarProduto(novoProduto);
 
-                                cout << "Produto cadastrado com sucesso!" << endl;
                             } catch (Exceptions& e) {
                                 cout << "Erro: " << e.what() << endl;
                             }
@@ -159,9 +158,10 @@ int main() {
                             break;
                         }
 
-                        case 3:
+                        case 3: {
                             carrinho.listarItens();
                             break;
+                        }
 
                         case 4: {
                             try {
