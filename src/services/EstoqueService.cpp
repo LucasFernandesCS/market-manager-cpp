@@ -39,6 +39,8 @@ void EstoqueService::adicionarProduto(Produto& produto) {
         throw Exceptions("Quantidade invalida para o produto '" + produto.getNome() + "'!");
     }
 
+    std::cout << "Produto '" + produto.getNome() + "' cadastrado com sucesso!" << std::endl;
+
     produtos.push_back(produto);
     salvarDados();
 }
@@ -74,6 +76,8 @@ void EstoqueService::adicionarEstoque(int id, int quantidade) {
         throw Exceptions("Quantidade invalida para adicionar estoque!");
     }
 
+    std::cout << "Quantidade de " + produto->getNome() + " alterado com sucesso!" << std::endl;
+
     produto->adicionarEstoque(quantidade);
     salvarDados();
 }
@@ -105,6 +109,8 @@ void EstoqueService::alterarPreco(int id, double novoPreco) {
     if (novoPreco <= 0) {
         throw Exceptions("Preco invalido para o produto '" + produto->getNome() + "'!");
     }
+
+    std::cout << "Preco de " + produto->getNome() + " alterado com sucesso!" << std::endl;
 
     produto->setPreco(novoPreco);
     salvarDados();

@@ -50,7 +50,6 @@ int main() {
                                 Produto novoProduto(nome, preco, qtd);
                                 estoqueService.adicionarProduto(novoProduto);
 
-                                cout << "Produto cadastrado com sucesso!" << endl;
                             } catch (Exceptions& e) {
                                 cout << "Erro: " << e.what() << endl;
                             }
