@@ -51,9 +51,9 @@ market-manager-cpp/
 │ ├── data/                # Arquivo de Armazenamento dos Dados
 │ ├── models/              # Arquivo do modelo que todos os produtos têm
 │ ├── services/            # Arquivo de serviços CRUD e outros de busca
-│ └── validator/           # ( A preencher )
+│ └── validator/           # Arquivo para validar se a compra pode ocorrer
 ├── .gitignore             # Arquivos e diretórios a serem ignorados pelo Git
-├── CMakeLists.txt         # ( A preencher )
+├── CMakeLists.txt         # Compila todo o projeto
 ├── README.md              # Relatório do projeto
 └── main.cpp               # Arquivo principal para rodar o programa
 ```
