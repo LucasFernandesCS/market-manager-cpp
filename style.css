@@ -104,17 +104,7 @@ section {
     margin-bottom: 40px;
 }
 
-.hero-placeholder {
-    width: 100%;
-    padding: 150px 0;
-    background-color: #f0f0f0;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    font-style: italic;
-    color: #777;
-    font-size: 1.2rem;
-    margin-bottom: 50px;
-}
+
 
 .hero-section h2 {
     text-align: left; /* Alinha o "Resumo" à esquerda */
@@ -156,6 +146,66 @@ pre {
     font-size: 1rem;
 }
 
+/* --- NOVOS ESTILOS PARA INTEGRANTES --- */
+
+.team-grid {
+    display: grid;
+    /* Cria colunas responsivas: tenta encaixar o máximo de 250px, mas
+       permite que cresçam para preencher o espaço (1fr) */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.team-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.team-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #f0f0f0;
+}
+
+.team-card h3 {
+    font-size: 1.5rem;
+    /* 24px */
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.team-card p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 0;
+}
+
+.team-card p a {
+    font-weight: 600;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.team-card p a:hover {
+    text-decoration: underline;
+}
+
+/* --- FIM DOS NOVOS ESTILOS --- */
 /* Botão de Ação (CTA) */
 .cta-button {
     display: inline-block;
