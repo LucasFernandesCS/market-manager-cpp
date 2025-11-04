@@ -1,0 +1,185 @@
+/* Reset Básico e Fontes */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth; /* Para navegação suave */
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 3.5rem; /* 56px */
+    color: #111;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2.5rem; /* 40px */
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+p {
+    font-size: 1.1rem; /* 17.6px */
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Utilitários */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.light-bg {
+    background-color: #f9f9f9;
+}
+
+/* Cabeçalho Fixo */
+.main-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    padding: 20px 0;
+}
+
+.main-nav a {
+    font-size: 1rem; /* 16px */
+    font-weight: 600;
+    color: #444;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: #007bff;
+}
+
+/* Seções */
+section {
+    padding: 80px 0;
+}
+
+/* Seção Hero */
+.hero-section {
+    padding-top: 100px;
+    text-align: center;
+}
+
+.hero-section .subtitle {
+    font-size: 1.5rem; /* 24px */
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.hero-placeholder {
+    width: 100%;
+    padding: 150px 0;
+    background-color: #f0f0f0;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    font-style: italic;
+    color: #777;
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+}
+
+.hero-section h2 {
+    text-align: left; /* Alinha o "Resumo" à esquerda */
+    font-size: 2rem;
+}
+
+.hero-section p {
+    text-align: left; /* Alinha o parágrafo à esquerda */
+    font-size: 1.1rem;
+}
+
+/* Lista de Funcionalidades */
+.features-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.features-list li {
+    font-size: 1.1rem;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.features-list li::before {
+    content: "✓"; /* Checkmark */
+    color: #007bff;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+/* Seção "Como Usar" (Bloco de Código) */
+pre {
+    background-color: #2d2d2d;
+    color: #f1f1f1;
+    padding: 25px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1rem;
+}
+
+/* Botão de Ação (CTA) */
+.cta-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 15px 35px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+/* Rodapé */
+.main-footer {
+    border-top: 1px solid #e0e0e0;
+    padding: 40px 0;
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+}
