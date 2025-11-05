@@ -18,7 +18,7 @@
                 <a href="#funcionalidades">Funcionalidades</a>
                 <a href="#como-usar">Como Usar</a>
                 <a href="#integrantes">Integrantes</a>
-                <a href="#codigo">Código</a>
+                <a href="#codigo">Links</a>
             </nav>
         </div>
     </header>
@@ -66,16 +66,18 @@
                 <p>
                     Para compilar e executar este projeto, você precisará de um compilador C++ (como g++ ou Clang).
                 </p>
-                <pre><code># 1. Clone o repositório
+                <pre><code># 1. Clone o repositório e entre na pasta
 git clone https://github.com/LucasFernandesCS/market-manager-cpp.git
 cd market-manager-cpp
 
-# 2. Compile o programa (exemplo usando g++)
-# (Ajuste este comando conforme seu projeto)
-g++ main.cpp -o market_manager
+# 2. Compile o programa usando CMake
+mkdir build
+cd build
+cmake ..
+cmake --build .
 
-# 3. Execute o programa
-./market_manager</code></pre>
+# 3. Execute o programa (Exemplo para MacOS/Linux)
+./main</code></pre>
             </div>
         </section>
 
@@ -129,14 +131,55 @@ g++ main.cpp -o market_manager
             </div>
         </section>
         <!-- FIM DA NOVA SEÇÃO -->
-        <section id="codigo" class="light-bg"> <!-- Alternando o fundo -->
-            <div class="container text-center">
-                <h2>Código Fonte</h2>
-                <p>O projeto é de código aberto e está disponível no GitHub.</p>
-                <a href="https://github.com/LucasFernandesCS/market-manager-cpp" class="cta-button" target="_blank">
-                    Ver Repositório no GitHub
+    <section id="codigo" class="light-bg"> <!-- Alternando o fundo -->
+        <div class="container text-center">
+            <h2>Links</h2>
+            <p>O projeto é de código aberto e está disponível no GitHub, assim como o relatório detalhado e um vídeo de
+                demonstração.</p>
+            
+            <!-- Wrapper para os botões -->
+            <div class="button-group" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+            
+                <!-- Botão GitHub -->
+                <a href="https://github.com/LucasFernandesCS/market-manager-cpp" class="cta-button" target="_blank"
+                    style="display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                    <!-- Ícone GitHub SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"
+                        aria-hidden="true">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                    <span>Ver Repositório</span>
                 </a>
-            </div>
+            
+                <!-- Botão Google Docs -->
+                <a href="https://docs.google.com/document/d/1ih0K1aNV9iyycaxQd13tS2bDl46EDMr7EzauxexOVMQ/edit?tab=t.0"
+                    class="cta-button" target="_blank"
+                    style="background-color: #5a67d8; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                    <!-- Ícone Google Docs SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"
+                        aria-hidden="true">
+                        <path
+                            d="M8.5 10a.5.5 0 0 1-.5.5H3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5zm-4 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm2-4a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5z" />
+                        <path
+                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z" />
+                    </svg>
+                    <span>Ver Relatório</span>
+                </a>
+            
+                <!-- Botão YouTube -->
+                <a href="https://www.youtube.com/watch?v=uBIqpFR-uC4" class="cta-button" target="_blank"
+                    style="background-color: #E62117; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                    <!-- Ícone YouTube SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"
+                        aria-hidden="true">
+                        <path
+                            d="M8.051 1.999h.089c.822.003 4.987.003 4.987.003s.08.002.164.004c.098.002.19.006.28.01.09.004.18.008.27.013.09.005.17.01.25.015.08.005.15.01.22.015.07.005.14.008.2.012l.06.004c.05.004.1.008.14.01.41.022.78.064 1.09.138.31.073.59.183.81.33.23.14.4.31.52.52.12.21.2.45.25.72.05.27.08.57.1.9.02.32.03.66.03.99s-.01.67-.03.99a3.7 3.7 0 0 1-.1.9c-.05.27-.13.51-.25.72s-.29.38-.52.52c-.22.15-.5.26-.81.33-.31.07-.68.11-1.09.14-.05.002-.1.005-.15.007-.05.002-.1.005-.15.007s-.1.004-.15.006c-.05.002-.1.004-.15.006s-.1.004-.15.006c-.05.002-.1.004-.14.005s-.1.002-.15.004l-.17.005c-.06.002-.12.003-.18.004s-.12.003-.18.004l-.17.004c-.06.002-.12.003-.18.004s-.12.003-.18.004l-.17.004c-.06.002-.12.003-.18.004s-.11.003-.17.004l-.13.002c-.06.002-.11.003-.17.003s-.11.003-.17.003l-.13.002c-.06.002-.11.003-.17.003s-.11.003-.17.003l-.13.002c-.06.002-.11.003-.17.003s-.11.003-.17.003l-.13.002c-.06.002-.11.003-.17.003s-.11.003-.17.003l-.13.002c-.06.002-.11.003-.17.003s-.11.003-.17.003l-.13.002c-.06.002-.11.003-.17.003s-.11.003-.17.003l-.13.002c-.06.002-.11.003-.17.003H8.05c-.06 0-.12-.002-.18-.003s-.12-.003-.18-.004l-.17-.004c-.06-.002-.12-.003-.18-.004s-.12-.003-.18-.004l-.17-.004c-.06-.002-.12-.003-.18-.004s-.12-.003-.18-.004l-.17-.004c-.06-.002-.12-.003-.18-.004s-.11-.003-.17-.004l-.13-.002c-.06-.002-.11-.003-.17-.003s-.11-.003-.17-.003l-.13-.002c-.06-.002-.11-.003-.17-.003s-.11-.003-.17-.003l-.13-.002c-.06-.002-.11-.003-.17-.003s-.11-.003-.17-.003l-.13-.002c-.06-.002-.11-.003-.17-.003s-.11-.003-.17-.003l-.13-.002c-.06-.002-.11-.003-.17-.003s-.11-.003-.17-.003l-.13-.002c-.06-.002-.11-.003-.17-.003s-.11-.003-.17-.003l-.13-.002c-.06-.002-.11-.003-.17-.003s-.12 0-.18-.002l-.17-.003c-.06-.002-.12-.003-.18-.004s-.12-.003-.18-.004l-.17-.004c-.06-.002-.12-.003-.18-.004s-.12-.003-.18-.004l-.17-.004c-.06-.002-.12-.003-.18-.004s-.1.002-.15.004l-.15.006c-.05.002-.1.004-.15.006s-.1.004-.15.006c-.05.002-.1.004-.15.006s-.1.004-.15.007c-.05.002-.1.005-.15.007s-.1.005-.15.007c-.04.002-.09.005-.14.007c-.41-.022-.78-.064-1.09-.138-.31-.073-.59-.183-.81-.33c-.23-.14-.4-.31-.52-.52c-.12-.21-.2-.45-.25-.72c-.05-.27-.08-.57-.1-.9c-.02-.32-.03-.66-.03-.99s.01-.67.03-.99c.02-.33.05-.63.1-.9c.05-.27.13-.51.25-.72s.29-.38.52-.52c.22-.15.5-.26.81-.33c.31-.07.68-.11 1.09-.14.05-.002.1-.005.15-.007s.1-.005.15-.007c.05-.002.1-.004.15-.006s.1-.004.15-.006c.05-.002.1-.004.15-.006s.1-.004.15-.007c.04-.002.09-.005.14-.007l.06-.004c.05-.004.1-.008.14-.01c.06-.004.12-.008.2-.012s.15-.01.22-.015c.07-.005.16-.01.25-.015s.18-.008.27-.013c.09-.004.18-.008.28-.01c.08-.002.16-.004.2-.004h.09zM6.3 11.6V4.4l4.5 3.6-4.5 3.6z" />
+                    </svg>
+                    <span>Ver Demonstração</span>
+                </a>
+                    </div>
+                </div>
         </section>
     </main>
 
